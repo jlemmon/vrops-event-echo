@@ -1,14 +1,19 @@
-# vrops-splunk
-A simple webhook shim for sending vR Ops alerts to Splunk via HEC
+# vrops-event-echo
+A simple webhook shim for echoing vR Ops alerts, which can be used to later send to other systems such as Splunk via HEC
 
-This is a simple script for receiving vRealize Operations webhook originating from alerts and forwarding them as
-logs to Splunk. It uses the HTTP Event Collector (HEC) feature of Splunk.
+This is completely based on https://github.com/prydin/vrops-splunk.git.  Thanks @prydin! 
 
 ## Installing
+Ensure you have pip or pip3 available on your system.  For Ubuntu 20.04, that looks like:
 
 ```
-git clone https://github.com/prydin/vrops-splunk.git
-cd vrops-splunk
+apt-get update && apt-get install 
+```
+
+Once that's complete:
+```
+git clone https://github.com/jlemmon/vrops-event-echo.git
+cd vrops-event-echo
 pip install -r requirements.txt
 ```
 
@@ -18,12 +23,10 @@ Note: On Mac, you may have to replace ```pip``` with ```pip3```
 Start the server using the following commands:
 
 ```
-export HEC_URL=https:<your instance>/services/collector
-export HEC_TOKEN=<your security token>
 flask run
 ```
 
-By default, all attributes of the alert are sent as key-value pairs. If you want to change the format, you may
+By default, all attributes of the alert are printed as key-value pairs. If you want to change the format, you may
 set the ```HEC_FORMAT``` environment variable. It accepts a Python format string that maps to the attributes
 of the alert. For example:
 
