@@ -39,7 +39,7 @@ sender = Sender(url, token)
 
 app = Flask(__name__)
 
-@app.route("/event/<subtype>", methods=["PUT", "POST", "GET"])
+@app.route("/<subtype>", methods=["PUT", "POST", "GET"])
 def hello_world(subtype):
 
     app.logger.info("Request method: %s", request.method)
@@ -55,6 +55,9 @@ def hello_world(subtype):
             msg = ""
             first = True
             for key in event:
+
+                app.logger.info("%s : %s", key, str(event[key]))
+                
                 if not first:
                     msg += ", "
                 first = False
